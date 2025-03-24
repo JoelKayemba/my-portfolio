@@ -115,21 +115,21 @@ const Apropos = () => {
     },
     {
       titre: "Préposé d’aide à domicile",
-      sousTitre: "Coup de Main à Domicile | Janv. 2024 - Présent",
+      sousTitre: "Coup de Main à Domicile, Rimouski | Janvier 2024 - Présent",
       description:
-        "Accompagnement des clients dans les activités quotidiennes et maintien d’un environnement sécurisé.",
+        "Accompagnement des clients dans leurs activités quotidiennes et maintien d’un environnement sécurisé.",
     },
     {
       titre: "Développeur React Native",
       sousTitre: "Projet Personnel | 2024 - Présent",
       description:
-        "Création d’une application mobile de gestion d’entraînement physique, intégration YouTube API, mode personnalisé pour utilisateurs.",
+        "Création d’une application mobile de gestion d’entraînement physique, avec suivi des répétitions et temps de repos, intégration de YouTube API.",
     },
     {
       titre: "Développeur Front-end (React.js)",
-      sousTitre: "Projets personnels et études | 2023 - Présent",
+      sousTitre: "Africell Kinshasa | Janvier 2023 - Mai 2023",
       description:
-        "Réalisation de sites web modernes et responsifs, gestion des états avancée et animations.",
+        "Développement d’interfaces utilisateur pour une application web interne, optimisation des performances et collaboration avec l’équipe backend.",
     },
   ];
 
