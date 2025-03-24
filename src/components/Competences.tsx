@@ -89,6 +89,7 @@ const Competences = () => {
     { name: "TypeScript", icon: "/assets/skills/Typescript.jpg", niveau: 60, description: "Code robuste et bien typé en progression constante." },
     { name: "React js", icon: "/assets/skills/react.png", niveau: 85, description: "Composants modernes et gestion avancée des états." },
     { name: "Python", icon: "/assets/skills/python.png", niveau: 70, description: "Automatisation et scripting efficaces." },
+    { name: "C#", icon: "/assets/skills/csharp.png", niveau: 70, description: "Bonne maîtrise de la programmation orientée objet, développement d’applications robustes et structurées." },
     { name: "MySQL", icon: "/assets/skills/mysql.png", niveau: 75, description: "Bases de données relationnelles bien gérées." },
     { name: "Google Cloud", icon: "/assets/skills/google.png", niveau: 70, description: "Déploiement cloud et intégration continue." },
   ];
