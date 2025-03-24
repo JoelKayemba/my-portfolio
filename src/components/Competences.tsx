@@ -86,9 +86,9 @@ const Competences = () => {
     { name: "CSS", icon: "/assets/skills/css2.png", niveau: 90, description: "Animations et design responsif maîtrisés." },
     { name: "JavaScript", icon: "/assets/skills/javascript.png", niveau: 85, description: "Dynamisme et logique avancée au rendez-vous." },
     { name: "React Native", icon: "/assets/skills/react.png", niveau: 85, description: "Composants modernes et gestion avancée des états." },
-    { name: "TypeScript", icon: "/assets/skills/Typescript.jpg", niveau: 80, description: "Code robuste et bien typé en progression constante." },
+    { name: "TypeScript", icon: "/assets/skills/Typescript.jpg", niveau: 60, description: "Code robuste et bien typé en progression constante." },
     { name: "React js", icon: "/assets/skills/react.png", niveau: 85, description: "Composants modernes et gestion avancée des états." },
-    { name: "Python", icon: "/assets/skills/python.png", niveau: 80, description: "Automatisation et scripting efficaces." },
+    { name: "Python", icon: "/assets/skills/python.png", niveau: 70, description: "Automatisation et scripting efficaces." },
     { name: "MySQL", icon: "/assets/skills/mysql.png", niveau: 75, description: "Bases de données relationnelles bien gérées." },
     { name: "Google Cloud", icon: "/assets/skills/google.png", niveau: 70, description: "Déploiement cloud et intégration continue." },
   ];
