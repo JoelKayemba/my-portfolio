@@ -18,7 +18,7 @@ const Timeline = styled.div`
   max-width: 1000px;
   margin: 0 auto;
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 50%;
@@ -26,6 +26,13 @@ const Timeline = styled.div`
     width: 4px;
     height: 100%;
     background-color: ${(props) => props.theme.colors.secondary};
+  }
+
+  @media (max-width: 768px) {
+    &::before {
+      left: 20px;
+      transform: none;
+    }
   }
 `;
 
@@ -41,10 +48,11 @@ const Item = styled(motion.div)`
   }
   &:nth-child(even) {
     left: 50%;
+    text-align: left;
   }
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 30px;
     right: -9px;
@@ -57,6 +65,23 @@ const Item = styled(motion.div)`
 
   &:nth-child(even)::before {
     left: -9px;
+    right: auto;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    padding-left: 60px;
+    text-align: left;
+
+    &:nth-child(odd),
+    &:nth-child(even) {
+      left: 0;
+    }
+
+    &::before {
+      left: 10px;
+      right: auto;
+    }
   }
 `;
 
@@ -91,7 +116,8 @@ const Apropos = () => {
     {
       titre: "Préposé d’aide à domicile",
       sousTitre: "Coup de Main à Domicile | Janv. 2024 - Présent",
-      description: "Accompagnement des clients dans les activités quotidiennes et maintien d’un environnement sécurisé.",
+      description:
+        "Accompagnement des clients dans les activités quotidiennes et maintien d’un environnement sécurisé.",
     },
     {
       titre: "Développeur React Native",

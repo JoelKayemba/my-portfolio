@@ -78,7 +78,7 @@ const ImageContainer = styled.div`
   align-items: center;
 
   @media (max-width: 768px) {
-    margin-top: 2rem;
+    margin-top: 4rem;
   }
 
   img {
