@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState , useRef} from "react";
 import emailjs from "emailjs-com";
 
 const SectionContact = styled.section`
@@ -73,49 +73,51 @@ const Notification = styled.div`
 `;
 
 const Contact = () => {
-  const [loading, setLoading] = useState(false);
-  const [sent, setSent] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoading(true);
-
-    emailjs
-      .sendForm(
-        "service_ykjyo48",      // Remplace par ton Service ID
-        "template_l6bdlnj",     // Remplace par ton Template ID
-        e.currentTarget,
-        "qx6185chBot3JYsgb"        // Remplace par ton Public Key (User ID)
-      )
-      .then(() => {
-        setSent(true);
-        e.currentTarget.reset();
-      })
-      .catch((error) => {
-        console.error("Erreur d’envoi : ", error);
-        
-      })
-      .finally(() => {
-        setLoading(false);
-        setTimeout(() => setSent(false), 3000);
-      });
+    const [loading, setLoading] = useState(false);
+    const [sent, setSent] = useState(false);
+    const formRef = useRef<HTMLFormElement>(null); // on crée une référence vers le formulaire
+  
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      setLoading(true);
+  
+      emailjs
+        .sendForm(
+          "service_ykjyo48",   
+          "template_l6bdlnj",  
+          e.currentTarget,     
+          "qx6185chBot3JYsgb"  
+        )
+        .then((response) => {
+          console.log("Message envoyé !", response.status, response.text);
+          setSent(true);
+          formRef.current?.reset();  // vide le formulaire après envoi réussi
+        })
+        .catch((error) => {
+          console.error("Erreur d’envoi :", error);
+          alert("Une erreur s'est produite, veuillez réessayer.");
+        })
+        .finally(() => {
+          setLoading(false);
+          setTimeout(() => setSent(false), 3000);
+        });
+    };
+  
+    return (
+      <SectionContact id="contact">
+        <Titre>Contact</Titre>
+        <Description>
+          N'hésitez pas à me contacter via ce formulaire. Je vous répondrai dès que possible.
+        </Description>
+        <Formulaire ref={formRef} onSubmit={handleSubmit}>
+          <Input name="user_name" type="text" placeholder="Votre nom" required />
+          <Input name="user_email" type="email" placeholder="Votre email" required />
+          <Textarea name="message" rows={5} placeholder="Votre message" required />
+          <SubmitButton type="submit">{loading ? "Envoi..." : "Envoyer"}</SubmitButton>
+          {sent && <Notification>Message envoyé avec succès !</Notification>}
+        </Formulaire>
+      </SectionContact>
+    );
   };
-
-  return (
-    <SectionContact id="contact">
-      <Titre>Contact</Titre>
-      <Description>
-        N'hésitez pas à me contacter via ce formulaire. Je vous répondrai dès que possible.
-      </Description>
-      <Formulaire onSubmit={handleSubmit}>
-        <Input name="user_name" type="text" placeholder="Votre nom" required />
-        <Input name="user_email" type="email" placeholder="Votre email" required />
-        <Textarea name="message" rows={5} placeholder="Votre message" required />
-        <SubmitButton type="submit">{loading ? "Envoi..." : "Envoyer"}</SubmitButton>
-        {sent && <Notification>Message envoyé avec succès !</Notification>}
-      </Formulaire>
-    </SectionContact>
-  );
-};
-
-export default Contact;
+  
+  export default Contact;
