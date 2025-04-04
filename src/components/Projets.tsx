@@ -3,96 +3,81 @@ import { projets } from "../data/projets";
 import { motion } from "framer-motion";
 
 const SectionProjets = styled.section`
-  padding: 120px 5% 80px;
+  padding: 100px 5%;
   background-color: ${(props) => props.theme.colors.background};
   color: ${(props) => props.theme.colors.text};
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 80px;
 `;
 
 const Titre = styled.h2`
-  font-size: 3.2rem;
+  font-size: 3rem;
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 20px;
 `;
 
-const Description = styled.p`
-  text-align: center;
-  color: gray;
-  margin-bottom: 4rem;
-  font-size: 1.25rem;
-`;
+interface LigneProjetProps {
+  $reverse?: boolean;
+}
 
-const GrilleProjets = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 3rem;
-  width: 100%;
-`;
 
-const CarteProjet = styled(motion.div)`
-  position: relative;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  transition: transform 0.4s, box-shadow 0.4s;
+const LigneProjet = styled.div<LigneProjetProps>`
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  flex-direction: ${(props) => (props.$reverse ? "row-reverse" : "row")};
 
-  &:hover {
-    transform: scale(1.05);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+  @media (max-width: 768px) {
+    flex-direction: column;
   }
+`;
+
+
+
+const ImageBox = styled(motion.div)`
+  flex: 1;
 
   img {
-    width: 100%;
-    height: 450px;
-    object-fit: cover;
-  }
-`;
-
-const Overlay = styled(motion.div)`
-  position: absolute;
-  top: 0;
-  left: 0;
+  object-fit: contain;
   width: 100%;
-  height: 100%;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.8));
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 20px;
-  opacity: 0;
-  transition: opacity 0.4s ease-in-out;
+  height: auto;
+  max-height: 450px;
+  border-radius: 12px;
+  background-color: #000; // ou autre fond
+}
 
-  ${CarteProjet}:hover & {
-    opacity: 1;
+`;
+
+const TextBox = styled(motion.div)`
+  flex: 1;
+
+  h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: ${(props) => props.theme.colors.secondary};
   }
-`;
 
-const TitreProjet = styled.h3`
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-  color: ${(props) => props.theme.colors.secondary};
-`;
+  p {
+    font-size: 1.1rem;
+    color: #ccc;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
 
-const DescProjet = styled.p`
-  font-size: 1.1rem;
-  color: #f0f0f0;
-  margin-bottom: 1rem;
-`;
+  a {
+    display: inline-block;
+    background-color: ${(props) => props.theme.colors.secondary};
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
 
-const LienProjet = styled.a`
-  align-self: flex-start;
-  background-color: ${(props) => props.theme.colors.secondary};
-  color: white;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-weight: bold;
-  text-decoration: none;
-  transition: background-color 0.3s;
-
-  &:hover {
-    background-color: ${(props) => props.theme.colors.primary};
+    &:hover {
+      background-color: ${(props) => props.theme.colors.primary};
+    }
   }
 `;
 
@@ -100,31 +85,34 @@ const Projets = () => {
   return (
     <SectionProjets id="projets">
       <Titre>Mes Projets</Titre>
-      <Description>
-        Voici quelques réalisations marquées par l'innovation et la qualité.
-      </Description>
-      <GrilleProjets>
-        {projets.map((projet) => (
-          <CarteProjet
-            key={projet.id}
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+      {projets.map((projet, index) => (
+        <LigneProjet key={projet.id} $reverse={index % 2 === 1}>
+
+          <ImageBox
+            initial={{ opacity: 0, x: index % 2 === 1 ? 100 : -100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <img src={projet.image} alt={projet.titre} />
-            <Overlay>
-              <TitreProjet>{projet.titre}</TitreProjet>
-              <DescProjet>{projet.description}</DescProjet>
-              <LienProjet href={projet.lien} target="_blank" rel="noreferrer">
-                Découvrir le projet
-              </LienProjet>
-            </Overlay>
-          </CarteProjet>
-        ))}
-      </GrilleProjets>
+          </ImageBox>
+
+          <TextBox
+            initial={{ opacity: 0, x: index % 2 === 1 ? -100 : 100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h3>{projet.titre}</h3>
+            <p>{projet.description}</p>
+            <a href={projet.lien} target="_blank" rel="noopener noreferrer">
+              Découvrir le projet
+            </a>
+          </TextBox>
+        </LigneProjet>
+      ))}
     </SectionProjets>
   );
 };
 
-export default Projets; 
+export default Projets;
