@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { projets } from "../data/projets";
-import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { useState } from "react";
 import { FaGithub, FaExternalLinkAlt, FaCode, FaMobileAlt } from "react-icons/fa";
 
 const SectionProjets = styled.section`

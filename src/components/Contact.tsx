@@ -3,7 +3,7 @@ import { useState, useRef } from "react";
 import emailjs from "emailjs-com";
 import { motion } from "framer-motion";
 import { FaPaperPlane, FaCheck, FaLinkedin, FaGithub, FaTwitter } from "react-icons/fa";
-import { MdEmail, MdLocationOn, MdPhone } from "react-icons/md";
+import { MdEmail, MdLocationOn} from "react-icons/md";
 
 const SectionContact = styled.section`
   padding: 120px 5% 80px;
