@@ -20,7 +20,7 @@ const App = () => {
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <GlobalStyle />
-      <Header toggleTheme={toggleTheme} darkMode={darkMode} />
+      <Header  />
       <main>
         <Accueil />
         <Apropos />
