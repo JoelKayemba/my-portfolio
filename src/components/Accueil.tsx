@@ -123,7 +123,7 @@ const Accueil = () => {
         <Description>
         Étudiant en informatique à l’Université du Québec à Rimouski, passionné par le développement web et mobile. Curieux, motivé et toujours prêt à apprendre, j’aime concevoir des applications modernes, fonctionnelles et esthétiques. Actuellement à la recherche d’un stage pour mettre mes compétences en pratique, découvrir de nouveaux environnements de travail et contribuer à des projets ambitieux.
         </Description>
-        <DownloadButton href="/cv.pdf" download>
+        <DownloadButton href="/curriculum_vitae-joel-kayemba.pdf" download>
           Télécharger mon CV
         </DownloadButton>
       </TexteAccueil>
