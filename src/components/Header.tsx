@@ -141,9 +141,9 @@ const Header = () => {
   }, []);
 
   const navItems = [
-    { id: "home", label: "Accueil" },
-    { id: "about", label: "À propos" },
-    { id: "projects", label: "Projets" },
+    { id: "accueil", label: "Accueil" },
+    { id: "apropos", label: "À propos" },
+    { id: "projets", label: "Projets" },
     { id: "contact", label: "Contact" },
   ];
 
@@ -155,7 +155,7 @@ const Header = () => {
         transition={{ duration: 0.5 }}
         $scrolled={scrolled}
       >
-        <Logo href="#home" onClick={() => setMenuOpen(false)}>
+        <Logo href="#accueil" onClick={() => setMenuOpen(false)}>
           <span>J</span>oel Kayemba
         </Logo>
 
