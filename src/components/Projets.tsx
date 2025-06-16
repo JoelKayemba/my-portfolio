@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { projets } from "../data/projets";
 import { motion } from "framer-motion";
-import { useState } from "react";
 import { FaGithub, FaExternalLinkAlt, FaCode, FaMobileAlt } from "react-icons/fa";
 
 const SectionProjets = styled.section`
@@ -202,7 +201,7 @@ const ProjectNumber = styled.div`
 `;
 
 const Projets = () => {
-  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
+ // const [hoveredProject, setHoveredProject] = useState<number | null>(null);
 
   return (
     <SectionProjets id="projets">
@@ -218,8 +217,8 @@ const Projets = () => {
         {projets.map((projet, index) => (
           <ProjectCard
             key={projet.id}
-            onMouseEnter={() => setHoveredProject(index)}
-            onMouseLeave={() => setHoveredProject(null)}
+           // onMouseEnter={() => setHoveredProject(index)}
+            //onMouseLeave={() => setHoveredProject(null)}
           >
             <ProjectNumber
               style={{
