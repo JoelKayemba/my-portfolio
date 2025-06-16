@@ -1,153 +1,205 @@
 import styled from "styled-components";
-import { FaMoon, FaSun, FaBars, FaTimes } from "react-icons/fa";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
+import { FaBars, FaTimes, FaDownload } from "react-icons/fa";
 
-const HeaderContainer = styled.header<{ visible: boolean }>`
+// Types
+interface MobileMenuProps {
+  $isOpen: boolean;
+}
+
+// Styled Components
+const HeaderContainer = styled(motion.header)<{ $scrolled: boolean }>`
   position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(10px);
-  padding: 1rem 2rem;
+  padding: 1rem 5%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   z-index: 1000;
-  transition: transform 0.4s ease;
-  transform: ${({ visible }) => (visible ? 'translateY(0)' : 'translateY(-100%)')};
+
+  background: ${({ theme, $scrolled }) =>
+    $scrolled ? `${theme.colors.background}e6` : theme.colors.background};
+  backdrop-filter: ${({ $scrolled }) => ($scrolled ? "blur(8px)" : "none")};
+  transition: all 0.3s ease;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.accent1};
+
+  @media (max-width: 768px) {
+    padding: 1rem 1.5rem;
+  }
 `;
 
-const Logo = styled.h1`
-  color: ${(props) => props.theme.colors.secondary};
-  font-size: 2rem;
-  cursor: pointer;
+const Logo = styled(motion.a)`
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: ${({ theme }) => theme.colors.primary};
+  text-decoration: none;
+  z-index: 1002;
+
+  span {
+    color: ${({ theme }) => theme.colors.secondary};
+  }
 `;
 
-const Nav = styled.nav<{ open: boolean }>`
+const NavLinks = styled(motion.div)<MobileMenuProps>`
   display: flex;
-  gap: 2rem;
   align-items: center;
+  gap: 2rem;
 
   @media (max-width: 768px) {
     position: fixed;
     top: 0;
-    right: ${({ open }) => (open ? "0" : "-100%")};
-    width: 250px;
+    right: 0;
+    left: auto;
+    width: 75%;
+    max-width: 300px;
     height: 100vh;
-    background-color: ${(props) => props.theme.colors.background2};
+    background: ${({ theme }) => theme.colors.background};
     flex-direction: column;
     justify-content: center;
-    transition: right 0.4s ease;
-    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
+    align-items: center;
+    transform: ${({ $isOpen }) => ($isOpen ? "translateX(0)" : "translateX(100%)")};
+    transition: transform 0.3s ease-in-out;
+    z-index: 1001;
+    box-shadow: -2px 0 15px rgba(0, 0, 0, 0.1);
   }
 `;
 
-const NavLink = styled.a`
-  color: ${(props) => props.theme.colors.text};
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 1.1rem;
-  transition: color 0.3s;
+const NavItem = styled(motion.a)`
+  color: ${({ theme }) => theme.colors.text};
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.3s ease;
 
   &:hover {
-    color: ${(props) => props.theme.colors.secondary};
+    color: ${({ theme }) => theme.colors.primary};
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.3rem;
+    padding: 0.75rem 0;
   }
 `;
 
-const ThemeToggle = styled.button`
-  background: ${(props) => props.theme.colors.accent1};
-  border: none;
-  cursor: pointer;
-  color: ${(props) => props.theme.colors.text};
-  font-size: 1.6rem;
-  padding: 10px;
-  border-radius: 50%;
-  transition: all 0.3s ease;
+const CTAButton = styled(motion.a)`
+  background: ${({ theme }) => theme.colors.primary};
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  font-weight: 500;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: transform 0.2s ease;
 
   &:hover {
-    background: ${(props) => props.theme.colors.secondary};
-    color: #fff;
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 768px) {
+    margin-top: 2rem;
   }
 `;
 
-const MenuIcon = styled.button`
+const MenuButton = styled(motion.button)`
   background: none;
   border: none;
-  color: ${(props) => props.theme.colors.text};
-  font-size: 2rem;
-  display: none;
+  color: ${({ theme }) => theme.colors.text};
+  font-size: 1.8rem;
   cursor: pointer;
+  z-index: 1002;
+  padding: 0.5rem;
 
+  display: none;
   @media (max-width: 768px) {
     display: block;
   }
 `;
 
-const CloseButton = styled.button`
-  background: none;
-  border: none;
-  color: ${(props) => props.theme.colors.text};
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  font-size: 2rem;
-  cursor: pointer;
-
-  &:hover {
-    color: ${(props) => props.theme.colors.secondary};
-  }
+const Overlay = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  
 `;
 
-type HeaderProps = {
-  toggleTheme: () => void;
-  darkMode: boolean;
-};
-
-const Header = ({ toggleTheme, darkMode }: HeaderProps) => {
+const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [visible, setVisible] = useState(true);
-  let lastScroll = 0;
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScroll = window.scrollY;
-      setVisible(currentScroll < lastScroll || currentScroll < 50);
-      lastScroll = currentScroll;
-    };
-
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const navItems = [
+    { id: "home", label: "Accueil" },
+    { id: "about", label: "À propos" },
+    { id: "projects", label: "Projets" },
+    { id: "contact", label: "Contact" },
+  ];
+
   return (
-    <HeaderContainer visible={visible}>
-      <Logo>Joel Kayemba</Logo>
-      <MenuIcon onClick={() => setMenuOpen(true)}>
-        <FaBars />
-      </MenuIcon>
-      <Nav open={menuOpen}>
+    <>
+      <HeaderContainer
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.5 }}
+        $scrolled={scrolled}
+      >
+        <Logo href="#home" onClick={() => setMenuOpen(false)}>
+          <span>J</span>oel Kayemba
+        </Logo>
+
+        <MenuButton
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+        >
+          {menuOpen ? <FaTimes /> : <FaBars />}
+        </MenuButton>
+
+        <NavLinks $isOpen={menuOpen}>
+          {navItems.map((item) => (
+            <NavItem
+              key={item.id}
+              href={`#${item.id}`}
+              onClick={() => setMenuOpen(false)}
+              whileHover={{ scale: 1.05 }}
+            >
+              {item.label}
+            </NavItem>
+          ))}
+
+          <CTAButton
+            href="/curriculum_vitae-joel-kayemba.pdf"
+            download
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <FaDownload /> CV
+          </CTAButton>
+        </NavLinks>
+      </HeaderContainer>
+
+      <AnimatePresence>
         {menuOpen && (
-          <CloseButton onClick={() => setMenuOpen(false)}>
-            <FaTimes />
-          </CloseButton>
+          <Overlay
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setMenuOpen(false)}
+          />
         )}
-        <NavLink href="#accueil" onClick={() => setMenuOpen(false)}>
-          Accueil
-        </NavLink>
-        <NavLink href="#apropos" onClick={() => setMenuOpen(false)}>
-          À propos
-        </NavLink>
-        <NavLink href="#projets" onClick={() => setMenuOpen(false)}>
-          Projets
-        </NavLink>
-        <NavLink href="#contact" onClick={() => setMenuOpen(false)}>
-          Contact
-        </NavLink>
-        <ThemeToggle onClick={toggleTheme}>
-          {darkMode ? <FaSun /> : <FaMoon />}
-        </ThemeToggle>
-      </Nav>
-    </HeaderContainer>
+      </AnimatePresence>
+    </>
   );
 };
 
