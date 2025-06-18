@@ -336,7 +336,7 @@ const Contact = () => {
             viewport={{ once: true }}
           >
             <SocialLink
-              href="https://linkedin.com/in/joelkayemba"
+              href="https://www.linkedin.com/in/joel-kayemba-1a7794294/"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.1 }}
@@ -353,15 +353,8 @@ const Contact = () => {
             >
               <FaGithub />
             </SocialLink>
-            <SocialLink
-              href="https://twitter.com/joelkayemba"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <FaTwitter />
-            </SocialLink>
+            
+         
           </SocialLinks>
         </ContactInfo>
 
