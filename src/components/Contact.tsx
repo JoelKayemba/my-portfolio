@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useState, useRef } from "react";
 import emailjs from "emailjs-com";
 import { motion } from "framer-motion";
-import { FaPaperPlane, FaCheck, FaLinkedin, FaGithub, FaTwitter } from "react-icons/fa";
+import { FaPaperPlane, FaCheck, FaLinkedin, FaGithub} from "react-icons/fa";
 import { MdEmail, MdLocationOn} from "react-icons/md";
 
 const SectionContact = styled.section`
