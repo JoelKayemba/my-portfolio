@@ -58,5 +58,26 @@ export const projets = [
     technologies: ["JavaScript", "HTML", "Browser Extension API"],
     lienDemo: "https://github.com/JoelKayemba/passsword_secure",
     lienCode: "https://github.com/JoelKayemba/passsword_secure"
+  },
+  {
+    id:7,
+    titre: "Hopital Elite",
+    description: "Application de gestion de rendez-vous, prescription et consultation d'un hopital ",
+    image: "/assets/projets/hopital.png",
+    type: "desktop",
+    technologies: ["C#", ".NET Desktop"],
+    lienDemo: "https://github.com/JoelKayemba/HopitalElite",
+    lienCode: "https://github.com/JoelKayemba/HopitalElite"
+  },
+  {
+    id: 8,
+    titre: "Site e-commerce",
+    description: "Application web e-commerce complète permettant aux utilisateurs de parcourir des produits, les ajouter au panier et effectuer des paiements sécurisés via Stripe.",
+    image: "/assets/projets/e-commerce.png",
+    type: "web",
+    technologies: ["C#", "ASP.NET", "Stripe", "API REST"],
+    lienDemo: "https://github.com/ByckelReauchel/Travail_Pratique1_TCE",
+    lienCode: "https://github.com/ByckelReauchel/Travail_Pratique1_TCE"
   }
+
 ];

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { projets } from "../data/projets";
 import { motion } from "framer-motion";
-import { FaGithub, FaExternalLinkAlt, FaCode, FaMobileAlt } from "react-icons/fa";
+import { FaGithub, FaExternalLinkAlt, FaCode, FaMobileAlt, FaDesktop } from "react-icons/fa";
 
 const SectionProjets = styled.section`
   padding: 120px 5%;
@@ -240,9 +240,11 @@ const Projets = () => {
                   viewport={{ once: true, margin: "0px 0px -100px 0px" }}
                 >
                   <ProjectTypeBadge>
-                    {projet.type === "web" ? <FaCode /> : <FaMobileAlt />}
-                    {projet.type === "web" ? "Application Web" : "Application Mobile"}
+                    {projet.type === "web" && <><FaCode /> Application Web</>}
+                    {projet.type === "mobile" && <><FaMobileAlt /> Application Mobile</>}
+                    {projet.type === "desktop" && <><FaDesktop /> Application de bureau</>}
                   </ProjectTypeBadge>
+
                   <ProjectImage src={projet.image} alt={projet.titre} />
                 </ProjectImageContainer>
 

@@ -1,13 +1,14 @@
 export const darkTheme = {
   colors: {
-    primary: "#0A0F14",      // Très foncé, presque noir bleuté
-    secondary: "#7A8894",    // Gris froid clair pour les accents
-    background: "#1B2128",   // Fond principal bleu nuit
-    background2: "#2F3842",  // Variation plus claire pour les sections
-    text: "#C5CCD3",         // Texte clair lisible
-    accent1: "#49535E",      // Bordures, séparations
-    accent2: "#3A424B",      // Interactions (hover, active)
-    highlight: "#7A8894",    // Mise en valeur subtile
+     primary: "#101916",
+      secondary: "#355245",
+      background: "#E3E5D8",
+      background2: "#AFC1B6",
+      text: "#101916",
+      accent1: "#648374",
+      accent2: "#355245",
+      highlight: "#AFC1B6",
+      inverse: "#101916" //
   },
 };
 

@@ -213,7 +213,7 @@ const PulseRing = styled.div`
 const TechBadge = styled(motion.div)`
   position: absolute;
   background: ${(props) => props.theme.colors.primary};
-  color: ${(props) => props.theme.colors.text};
+  color: ${(props) => props.theme.colors.highlight};
   padding: 8px 15px;
   border-radius: 50px;
   font-size: 0.9rem;
