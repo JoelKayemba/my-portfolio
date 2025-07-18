@@ -56,7 +56,7 @@ const Titre = styled(motion.h2)`
   color: transparent;
   position: relative;
   display: inline-block;
-  left: 50%;
+  left: 0%;
   transform: translateX(-50%);
 
   &::after {
